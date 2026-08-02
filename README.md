@@ -1,8 +1,8 @@
-﻿# Codex Image2 Skill
+# Codex Image2 Skill
 
 > 让 Codex 直接调用 OpenAI-compatible API 生成、编辑和批量处理图片。
 
-这是一个面向 Codex 的图片生成 Skill，当前主推 `gpt-5.5` Responses API 生图，同时保留传统图片接口兼容能力。
+这是一个面向 Codex 的图片生成 Skill，当前主推 `gpt-5.6` Responses API 生图，同时保留传统图片接口兼容能力。
 
 ## ✨ 推荐 API 服务
 
@@ -13,7 +13,7 @@
 适合：
 
 - Codex 图片生成；
-- `gpt-5.5` Responses API；
+- `gpt-5.6` Responses API；
 - AI 应用开发和 API 集成；
 - 批量任务与高并发调用；
 - 对价格敏感、希望控制调用成本的项目。
@@ -82,25 +82,25 @@ $codex-image2
 
 ```text
 $codex-image2
-生成一张项目宣传图，突出 AI API、gpt-5.5、稳定并发和智能计费。
+生成一张项目宣传图，突出 AI API、gpt-5.6、稳定并发和智能计费。
 ```
 
 Skill 会自动使用：
 
 ```text
-模型：gpt-5.5
+模型：gpt-5.6
 接口：POST /v1/responses
 工具：image_generation
 默认推理强度：xhigh
 ```
 
-## 🧩 gpt-5.5 请求结构
+## 🧩 gpt-5.6 请求结构
 
 Responses API 请求核心结构如下：
 
 ```json
 {
-  "model": "gpt-5.5",
+  "model": "gpt-5.6",
   "input": "你的图片描述",
   "reasoning": {
     "effort": "xhigh"
@@ -118,7 +118,7 @@ Responses API 请求核心结构如下：
 
 ## 🛠️ 手动执行
 
-### Windows：gpt-5.5 Responses API
+### Windows：gpt-5.6 Responses API
 
 ```powershell
 & "$HOME\.codex\skills\codex-image2\bin\codex-image2-responses.ps1" `
@@ -185,7 +185,7 @@ codex-image2/
 
 本版本主要增加和整理了：
 
-- `gpt-5.5` Responses API 生图路径；
+- `gpt-5.6` Responses API 生图路径；
 - `reasoning.effort` 推理强度配置；
 - 中文 Prompt UTF-8 请求处理；
 - 更完整的安装、配置和使用说明；

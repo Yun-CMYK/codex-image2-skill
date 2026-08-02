@@ -2,7 +2,7 @@ param(
     [Parameter(Mandatory = $true)]
     [string]$Prompt,
     [string]$Out = "output/imagegen/image.png",
-    [string]$Model = "gpt-5.5",
+    [string]$Model = "gpt-5.6",
     [ValidateSet("none", "minimal", "low", "medium", "high", "xhigh", "max")]
     [string]$ReasoningEffort = "xhigh",
     [switch]$Force,

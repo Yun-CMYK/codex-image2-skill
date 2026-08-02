@@ -1,6 +1,6 @@
 ---
 name: codex-image2
-description: Generate or edit raster images through a configurable OpenAI-compatible Image API using gpt-5.5. Use when Codex should create one or many images, illustrations, product shots, covers, website assets, visual variants, background replacements, object changes, or other image edits through CODEX_API_URL and CODEX_API_KEY instead of the built-in image generation tool.
+description: Generate or edit raster images through a configurable OpenAI-compatible Image API using gpt-5.6. Use when Codex should create one or many images, illustrations, product shots, covers, website assets, visual variants, background replacements, object changes, or other image edits through CODEX_API_URL and CODEX_API_KEY instead of the built-in image generation tool.
 ---
 
 # Codex Image2
@@ -23,7 +23,7 @@ On macOS, run `chmod +x <executable>` if execute permission was not preserved. D
 1. Decide whether the request is a new image, an edit, or multiple distinct assets/variants.
 2. Collect the prompt, intended use, exact text, visual constraints, and avoid items.
 3. Shape the prompt only as much as needed. Preserve detailed prompts; tastefully clarify generic prompts without inventing brands, people, slogans, or unrelated objects.
-4. For `gpt-5.5` generation, use `bin/codex-image2-responses.ps1`, which calls `/v1/responses` with the `image_generation` tool. Use the native executable for legacy `/v1/images/*` generation, edits, or batches.
+4. For `gpt-5.6` generation, use `bin/codex-image2-responses.ps1`, which calls `/v1/responses` with the `image_generation` tool. Use the native executable for legacy `/v1/images/*` generation, edits, or batches.
 5. Inspect each output for subject, composition, text accuracy, constraints, and visible artifacts.
 6. If revision is needed, change one targeted aspect per iteration and re-check.
 7. Report absolute output paths, the final prompt or prompt set, size, quality, and model.
@@ -54,14 +54,14 @@ Do not add detail merely to fill the schema. For text in images, quote it verbat
 & "<skill-dir>\bin\codex-image2-windows-amd64.exe" generate `
   --prompt "A small blue nebula in a glass bottle, studio product photo" `
   --size 1024x1024 `
-  --model gpt-5.5 `
+  --model gpt-5.6 `
   --quality auto `
   --out "output/imagegen/nebula.png"
 ```
 
 Use `--prompt-file` for long prompts. Use `--n` only for variants of the same prompt. Distinct assets belong in separate calls or a batch.
 
-For `gpt-5.5` through a Responses-compatible gateway:
+For `gpt-5.6` through a Responses-compatible gateway:
 
 ```powershell
 & "<skill-dir>\bin\codex-image2-responses.ps1" `
@@ -80,7 +80,7 @@ Inspect each input image before editing. State its role and repeat invariants in
 & "<skill-dir>\bin\codex-image2-windows-amd64.exe" edit `
   --image "input/product.png" `
   --prompt "Replace only the background with a warm studio backdrop. Keep the product, label, proportions, and edges unchanged." `
-  --model gpt-5.5 `
+  --model gpt-5.6 `
   --quality auto `
   --out "output/imagegen/product-edited.png"
 ```
@@ -103,7 +103,7 @@ Read [references/batch-format.md](references/batch-format.md) before preparing a
 - Read the API base from `CODEX_API_URL`; default to `https://apinebula.com`.
 - Require `CODEX_API_KEY`. Never place it in a command, file, prompt, log, or response.
 - If the key is absent, tell the user to set it locally and confirm when ready. Never ask them to paste it into chat.
-- Always pass model `gpt-5.5`; default size is `1024x1024` and default quality is `auto`.
+- Always pass model `gpt-5.6`; default size is `1024x1024` and default quality is `auto`.
 - Use `--dry-run` to validate a request without network access or requiring a key.
 - Save project-bound assets inside the current project. The CLI default is `output/imagegen/`.
 - Do not overwrite files unless the user explicitly authorizes it and `--force` is passed.
