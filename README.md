@@ -1,52 +1,55 @@
 ﻿# Codex Image2 Skill
 
-让 Codex 通过 OpenAI-compatible API 直接生成和编辑图片。
+> 让 Codex 直接调用 OpenAI-compatible API 生成、编辑和批量处理图片。
 
-本 Skill 支持两条路径：
+这是一个面向 Codex 的图片生成 Skill，当前主推 `gpt-5.5` Responses API 生图，同时保留传统图片接口兼容能力。
 
-- **gpt-5.5 Responses API 生图**：`/v1/responses` + `image_generation` 工具；
-- **传统图片 API**：`/v1/images/generations`、`/v1/images/edits`。
+## ✨ 推荐 API 服务
 
-## 项目宣传
+如果你需要低倍率、实惠价格、稳定调用和较高并发，可以体验：
 
-推荐体验 [vokeapi.cloud](https://www.vokeapi.cloud/)：
+### [vokeapi.cloud](https://www.vokeapi.cloud/)
 
-- 小倍率，价格更实惠；
-- 面向开发者的 API 接入；
-- 适合批量调用和高并发场景；
-- 支持 `gpt-5.5` Responses API 生图；
-- 具体模型、价格、并发和可用性以服务端实时配置为准。
+适合：
 
-> 以上是项目定位和宣传文案，不代表固定价格或无限制服务承诺。
+- Codex 图片生成；
+- `gpt-5.5` Responses API；
+- AI 应用开发和 API 集成；
+- 批量任务与高并发调用；
+- 对价格敏感、希望控制调用成本的项目。
 
-## 安装
+> 具体模型、价格、余额、并发和可用区域以服务端实时配置为准。
 
-把仓库地址发给 Codex：
+## 🚀 安装
+
+将下面的仓库地址发给 Codex：
 
 ```text
 请帮我安装这个 Skill：
-https://github.com/fengfengzhidao/codex-image2-skill
+https://github.com/Yun-CMYK/codex-image2-skill
 ```
 
-手动安装：
+也可以手动安装。
 
 ### Windows PowerShell
 
 ```powershell
-git clone https://github.com/fengfengzhidao/codex-image2-skill.git
-Copy-Item codex-image2-skill\codex-image2 "$HOME\.codex\skills\codex-image2" -Recurse
+git clone https://github.com/Yun-CMYK/codex-image2-skill.git
+Copy-Item codex-image2-skill\codex-image2 "$HOME\.codex\skills\codex-image2" -Recurse -Force
 ```
 
 ### macOS / Linux
 
 ```bash
-git clone https://github.com/fengfengzhidao/codex-image2-skill.git
+git clone https://github.com/Yun-CMYK/codex-image2-skill.git
 cp -R codex-image2-skill/codex-image2 ~/.codex/skills/codex-image2
 ```
 
-## 配置 API
+安装完成后，重新启动 Codex。
 
-不要把真实 Key 写进仓库、Prompt 或 README。只通过本机环境变量配置：
+## 🔑 配置 API
+
+不要把真实 API Key 写入 README、代码、截图或 Git 提交。只在本机配置环境变量。
 
 ### Windows PowerShell
 
@@ -64,30 +67,58 @@ export CODEX_API_URL="https://www.vokeapi.cloud"
 export CODEX_API_KEY="你的 API Key"
 ```
 
-API 地址可以填写服务根地址或带 `/v1` 的地址，脚本会自动整理 Responses API 路径。
+地址可以填写服务根地址，也可以填写带 `/v1` 的地址，脚本会自动整理接口路径。
 
-## 使用 gpt-5.5 生图
+## 🎨 在 Codex 中使用
 
-在 Codex 中直接说：
+直接在 Codex 里输入：
 
 ```text
 $codex-image2
-生成一张赛博朋克城市宣传图
+生成一张赛博朋克城市夜景图
 ```
 
-底层请求等价于：
+或者：
+
+```text
+$codex-image2
+生成一张项目宣传图，突出 AI API、gpt-5.5、稳定并发和智能计费。
+```
+
+Skill 会自动使用：
+
+```text
+模型：gpt-5.5
+接口：POST /v1/responses
+工具：image_generation
+默认推理强度：xhigh
+```
+
+## 🧩 gpt-5.5 请求结构
+
+Responses API 请求核心结构如下：
 
 ```json
 {
   "model": "gpt-5.5",
   "input": "你的图片描述",
-  "reasoning": { "effort": "xhigh" },
-  "tools": [{ "type": "image_generation" }],
-  "tool_choice": { "type": "image_generation" }
+  "reasoning": {
+    "effort": "xhigh"
+  },
+  "tools": [
+    {
+      "type": "image_generation"
+    }
+  ],
+  "tool_choice": {
+    "type": "image_generation"
+  }
 }
 ```
 
-手动执行 Windows Responses API 脚本：
+## 🛠️ 手动执行
+
+### Windows：gpt-5.5 Responses API
 
 ```powershell
 & "$HOME\.codex\skills\codex-image2\bin\codex-image2-responses.ps1" `
@@ -102,36 +133,63 @@ $codex-image2
 none, minimal, low, medium, high, xhigh, max
 ```
 
-## 编辑图片
+### 传统图片 API
 
-传统图片编辑命令：
+```powershell
+& "$HOME\.codex\skills\codex-image2\bin\codex-image2-windows-amd64.exe" generate `
+  --prompt "A small blue nebula inside a glass bottle" `
+  --model gpt-image-2 `
+  --quality auto `
+  --out "output\imagegen\nebula.png"
+```
+
+编辑图片：
 
 ```powershell
 & "$HOME\.codex\skills\codex-image2\bin\codex-image2-windows-amd64.exe" edit `
   --image "input.png" `
-  --prompt "只替换背景，保持主体、比例和边缘不变" `
+  --prompt "Replace only the background and keep the subject unchanged" `
   --out "output\imagegen\edited.png"
 ```
 
-## 文件说明
+## 📦 目录结构
 
 ```text
 codex-image2/
-├─ SKILL.md                         Codex Skill 指令
-├─ agents/openai.yaml               Skill 展示信息
-├─ bin/codex-image2-responses.ps1  gpt-5.5 Responses API 生图脚本
-├─ bin/codex-image2-windows-*.exe  Windows 原生 CLI
-├─ bin/codex-image2-darwin-*       macOS 原生 CLI
-├─ references/batch-format.md       批量任务格式
-└─ src/image_gen.go                 原生 CLI 源码
+├─ SKILL.md
+├─ agents/openai.yaml
+├─ bin/codex-image2-responses.ps1
+├─ bin/codex-image2-windows-amd64.exe
+├─ bin/codex-image2-windows-arm64.exe
+├─ bin/codex-image2-darwin-amd64
+├─ bin/codex-image2-darwin-arm64
+├─ references/batch-format.md
+└─ src/image_gen.go
 ```
 
-## 安全说明
+## 🔒 安全说明
 
 - 不要提交真实 API Key；
-- 不要把 Key 写入脚本、截图、Prompt、日志或 Git 提交；
-- 建议为不同环境使用独立 Key，并定期轮换；
-- 图片生成费用、模型可用性和并发限制由 API 服务端决定。
+- 不要在聊天、截图、Prompt 或日志中暴露 Key；
+- 建议不同环境使用独立 Key，并定期轮换；
+- 图片生成费用和并发限制由 API 服务端决定；
+- 本 Skill 只从环境变量读取 Key，不会主动写入仓库。
+
+## 🙏 原作者与来源声明
+
+本项目基于原作者 **fengfengzhidao** 的开源项目进行整理和二次维护：
+
+- 原作者：`fengfengzhidao`
+- 原始项目 / 原帖：<https://github.com/fengfengzhidao/codex-image2-skill>
+- 当前维护仓库：<https://github.com/Yun-CMYK/codex-image2-skill>
+
+本版本主要增加和整理了：
+
+- `gpt-5.5` Responses API 生图路径；
+- `reasoning.effort` 推理强度配置；
+- 中文 Prompt UTF-8 请求处理；
+- 更完整的安装、配置和使用说明；
+- vokeapi.cloud 项目接入示例。
 
 ## License
 
